@@ -59,20 +59,6 @@ def upload():
         text += char
     # Return the result to Flutter
     return text
-# if __name__ == '__main__':
-#     app.run(port=8080, debug=True, host="0.0.0.0", threaded=True,
-#             use_reloader=True, passthrough_errors=True)
-wsgi_app = app.wsgi_app
-
-def handler(request, context):
-    environ = request.get_environ()
-    response = {}
-
-    def start_response(status, headers):
-        response['statusCode'] = int(status.split()[0])
-        response['headers'] = dict(headers)
-
-    body = wsgi_app(environ, start_response)
-    response['body'] = b''.join(body).decode('utf-8')
-
-    return response
+if __name__ == '__main__':
+    app.run(port=8080, debug=True, host="0.0.0.0", threaded=True,
+            use_reloader=True, passthrough_errors=True)
